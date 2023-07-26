@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealityKit
-import RealityKitContent
 
 struct ContentView: View {
 
@@ -15,6 +14,8 @@ struct ContentView: View {
 
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    
+    @EnvironmentObject private var viewModel: ViewModel
 
     var body: some View {
         NavigationSplitView {
@@ -24,14 +25,18 @@ struct ContentView: View {
             .navigationTitle("Sidebar")
         } detail: {
             VStack {
-                Model3D(named: "Scene", bundle: realityKitContentBundle)
-                    .padding(.bottom, 50)
 
                 Text("Hello, world!")
 
                 Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
                     .toggleStyle(.button)
                     .padding(.top, 50)
+                Button("Add Cube") {
+                    viewModel.addCube()
+                }
+                Slider(value: $viewModel.cubeScale) {
+                    Text("Scale")
+                }
             }
             .navigationTitle("Content")
             .padding()

@@ -9,13 +9,15 @@ import SwiftUI
 
 @main
 struct ResizableCubeApp: App {
+    @StateObject private var viewModel = ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(viewModel)
         }
 
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
+            ImmersiveView().environmentObject(viewModel)
         }
     }
 }
